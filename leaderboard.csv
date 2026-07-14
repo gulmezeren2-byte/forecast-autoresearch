@@ -5,3 +5,4 @@ run_at_utc,label,model_sha,protocol_sha,dev_wmape,dev_fva,holdout_wmape,holdout_
 2026-07-14 10:44,ref: SES(0.3),-,13e6b1b0e0e6,23.45,1.2,27.67,3.3,288,reference model
 2026-07-14 10:44,ref: seasonal SES,-,13e6b1b0e0e6,20.67,3.98,24.18,6.79,288,reference model
 2026-07-14 10:55,agent,f9d824492c8e,13e6b1b0e0e6,20.67,3.98,24.18,6.79,288,seasonal index + SES on deseasonalized level
+2026-07-14 10:56,agent,92e0ffb37c12,13e6b1b0e0e6,20.86,3.79,24.59,6.38,288,damped-trend Holt on deseasonalized level (phi=0.85)
