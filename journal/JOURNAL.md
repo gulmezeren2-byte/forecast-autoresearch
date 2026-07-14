@@ -57,5 +57,11 @@ Final model of record: **run 3** (model.py reverted to it; its hash matches lead
 
 Director's standing question 2 ("is there ANY honest monthly method that helps lumpy SKUs?") — partial answer: yes, but the helpful move is *calmer estimation*, not better pattern detection. The practical ceiling for these SKUs remains low; buffering advice stands.
 
+## Run 6 — 2026-07-14 — cycle 2 opens: Croston(α=0.15) on the intermittent branch
+- Change: intermittent branch's 12-month mean replaced by classic Croston (separate SES of nonzero sizes and inter-demand intervals).
+- Result: dev FVA **+4.01**, holdout FVA **+7.20** (champion: +4.29 / +7.62)
+- Read: worse on both windows — a real, consistent loss, not window luck. Diagnosis: these intermittent series have near-stationary occurrence; Croston earns its keep when demand *intervals drift*, which this universe lacks. Against a stationary process, the 12-month mean is already close to the Bayes answer and Croston's recency-weighting only adds variance.
+- Next: directive step 2 — SBA bias correction (×(1−α/2)). Croston runs hot by construction; the correction may recover part of the loss. Warning flag: if this also lands below champion, stop rule 6 (two consecutive holdout regressions) triggers.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.

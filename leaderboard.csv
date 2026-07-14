@@ -9,3 +9,4 @@ run_at_utc,label,model_sha,protocol_sha,dev_wmape,dev_fva,holdout_wmape,holdout_
 2026-07-14 10:57,agent,16cc55f52ddd,13e6b1b0e0e6,20.36,4.29,23.35,7.62,288,pattern split: zero-share>0.2 -> 12m mean; else seasonal SES
 2026-07-14 10:57,agent,8c9b041be777,13e6b1b0e0e6,20.03,4.62,23.4,7.57,288,CV-shrunk seasonal indices on smooth branch
 2026-07-14 10:58,agent,142ca7380b43,13e6b1b0e0e6,20.68,3.96,23.62,7.35,288,intermittent branch: full-history mean (max restraint)
+2026-07-14 11:02,agent,96751f91f6bf,13e6b1b0e0e6,20.63,4.01,23.77,7.2,288,C2: Croston(0.15) on intermittent branch

@@ -7,10 +7,9 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Cycle 2, experiment 1: Croston on the intermittent branch.
-Separate exponential smoothing of nonzero demand sizes and inter-demand
-intervals (alpha=0.15); forecast = size_level / interval_level. Smooth branch
-unchanged from the cycle-1 champion.
+Cycle 2, experiment 2: Croston + SBA bias correction.
+Croston's estimator is positively biased; Syntetos-Boylan approximation
+multiplies the rate by (1 - alpha/2). Everything else as experiment 6.
 """
 
 from __future__ import annotations
@@ -41,7 +40,7 @@ def _croston(h: np.ndarray, alpha: float = CROSTON_ALPHA) -> float:
             gap += 1
     if size is None:
         return 0.0
-    return float(size / max(interval, 1e-9))
+    return float((size / max(interval, 1e-9)) * (1 - alpha / 2))  # SBA correction
 
 
 def forecast_one(history: np.ndarray) -> float:
