@@ -5,11 +5,11 @@
 🇬🇧 English version: [README.md](README.md)
 
 > Yapay zeka ajanına **düzenleyebileceği tek dosya**, **asla göremeyeceği mühürlü bir test dönemi**, sabit bir deney bütçesi ve tek dürüst metrik veriliyor: **geçen ayın sayısını sevk etmeye karşı katma değer.**
-> Klasik istatistiğin koyduğu, geçilmesi gereken çıta: **+6,79 puan.**
+> Klasik istatistiğin koyduğu çıta: **+6,79 puan.** Döngü 1 sonunda: **ajan çıtayı geçti — +7,62, 5 deneyin 3.'sünde.**
 
 ![Skor tablosu](charts/leaderboard.svg)
 
-**Durum:** düzenek canlı, protokol mühürlü (`run.py` kurcalamaya-dayanıklı hash'ler kaydediyor). Referans çıtası kuruldu. Ajan deney döngüleri sırada — her koşu, başarılı ya da başarısız, [skor tablosuna](leaderboard.md) ve [günlüğe](journal/JOURNAL.md) işlenecek.
+**Durum — döngü 1 tamamlandı (5 deney):** çıta süslü matematikle değil *itidalle* düştü — kesikli talebe mevsimsel endeks dayatmayı reddederek (koşu 3). Bir iyileştirme yalnızca dev penceresini iyileştirdiği için reddedildi (koşu 4), biri dozu kaçırdı (koşu 5). Her koşu — iki başarısızlık dahil — gerekçeleriyle [skor tablosunda](leaderboard.md) ve [günlükte](journal/JOURNAL.md).
 
 ## Referans çıtası (gerçek sayılar, donmuş protokol)
 

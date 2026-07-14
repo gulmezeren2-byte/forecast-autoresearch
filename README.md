@@ -5,11 +5,11 @@
 🇹🇷 Türkçesi: [README.tr.md](README.tr.md)
 
 > An AI agent gets **one file to edit**, a **sealed holdout it can never see**, a fixed experiment budget, and a single honest metric: **value added over shipping last month's number**.
-> The bar it must beat, set by classical statistics: **+6.79 points**.
+> The bar set by classical statistics: **+6.79 points**. After cycle 1: **the agent cleared it — +7.62, on experiment 3 of 5.**
 
 ![Leaderboard](charts/leaderboard.svg)
 
-**Status:** harness live, protocol sealed (`run.py` records tamper-evident hashes). Reference bar set. Agent experiment cycles start next — every run lands on the [leaderboard](leaderboard.md) and in the [journal](journal/JOURNAL.md), successes and failures alike.
+**Status — cycle 1 complete (5 experiments):** the bar fell not to fancier math but to *restraint* — refusing to fit seasonal indices to intermittent demand (run 3). One refinement was refused for improving only the dev window (run 4), one overshot (run 5). Every run — including both failures — is on the [leaderboard](leaderboard.md) and in the [journal](journal/JOURNAL.md), with the full reasoning.
 
 ## The reference bar (real numbers, frozen protocol)
 

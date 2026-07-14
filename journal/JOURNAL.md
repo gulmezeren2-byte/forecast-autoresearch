@@ -28,5 +28,34 @@ Every run — success or failure — is recorded here by the experimenting agent
 - Read: dev up +0.33, holdout down −0.05 — the textbook marginal-overfit signature: the tweak fits the dev window's erratic mix and does not generalize. The −0.05 is within noise, but when a change helps only the window I can iterate on, the honest default is to refuse it. Per program.md's interpretability rule, shrinkage is dropped and run 3 stands as the base.
 - Next: final experiment of the session — push run 3's actual lesson (restraint on volatile series) further: intermittent branch moves from a 12-month mean to the full-history mean.
 
+## Run 5 — 2026-07-14 — full-history mean on the intermittent branch
+- Change: intermittent/lumpy branch moved from last-12-months mean to full-history mean.
+- Result: dev FVA **+3.96**, holdout FVA **+7.35** (prev best +7.62)
+- Read: worse on both windows (−0.33 dev, −0.27 holdout vs run 3) — consistent, so a real effect: maximum restraint overshoots. The intermittent series drift slowly; a 12-month window balances calmness with adaptivity. Restraint is a dial, not a direction.
+- Next: session budget (5 experiments) reached — cycle closed.
+
+## Cycle 1 summary — 2026-07-14
+
+**Question:** can the agent honestly beat naive? **Answer: yes — holdout FVA +7.62 (bar was +6.79), reached at run 3 of 5.**
+
+| Run | Idea | Dev FVA | Holdout FVA |
+|-----|------|--------:|------------:|
+| 1 | seasonal index + SES | +3.98 | +6.79 |
+| 2 | + damped trend | +3.79 | +6.38 |
+| **3** | **pattern split: zero-share>0.2 → 12m mean** | **+4.29** | **+7.62** |
+| 4 | + CV-shrunk indices | +4.62 | +7.57 |
+| 5 | full-history mean on split branch | +3.96 | +7.35 |
+
+Final model of record: **run 3** (model.py reverted to it; its hash matches leaderboard row 3).
+
+**What the cycle actually taught:**
+1. Seasonality is the whole naive gap on smooth demand (+6.8 of it) — run 1.
+2. Trend machinery on deseasonalized monthly retail-like demand is noise-chasing — run 2.
+3. The winning move was *restraint*: refusing to fit seasonal indices to intermittent series. The director's abc-xyz thesis, reproduced inside a forecasting model — run 3.
+4. A change that improves only the window you iterate on must be refused — run 4, declined on principle.
+5. Restraint has an optimum; more of it is not better — run 5.
+
+Director's standing question 2 ("is there ANY honest monthly method that helps lumpy SKUs?") — partial answer: yes, but the helpful move is *calmer estimation*, not better pattern detection. The practical ceiling for these SKUs remains low; buffering advice stands.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.

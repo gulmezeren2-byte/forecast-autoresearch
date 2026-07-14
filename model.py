@@ -7,10 +7,10 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Experiment 5: run-3 core, calmer intermittent branch.
-Shrinkage from run 4 reverted (dev-only gain = refused). The intermittent/lumpy
-branch now uses the FULL-history mean instead of the last 12 months - the
-calmest honest estimator available for demand that punishes pattern-chasing.
+Model of record: run 3 (cycle 1 champion, holdout FVA +7.62).
+Pattern-aware split: SKUs with >20% zero months get a 12-month mean;
+the rest get seasonal-index + SES. Runs 4-5 explored refinements and were
+refused/reverted - see journal/JOURNAL.md.
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ def forecast_one(history: np.ndarray) -> float:
     h = np.asarray(history, dtype=float)
     n = len(h)
     if (h == 0).mean() > ZERO_SHARE_CUT:
-        return float(h.mean())  # intermittent/lumpy: the calmest honest estimator
+        return float(h[-SEASON:].mean())  # intermittent/lumpy: calm 12-month mean
     if n < 2 * SEASON:
         return _ses(h)
     m = np.arange(n) % SEASON
