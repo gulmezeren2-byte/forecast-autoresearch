@@ -2,16 +2,19 @@
 
 *This file is edited by the research director (Eren Gülmez) — never by the agent. It is the experiment's steering wheel: the agent reads it at the start of every session and follows it over its own preferences.*
 
-## Current directives — cycle 1
+## Current directives — cycle 2
 
-1. **Budget:** maximum 5 experiments per session.
-2. **Scope:** classical statistics only — smoothing, seasonal decomposition, trend damping, simple combinations. No ML libraries, no external data, standard library + numpy only.
-3. **Sequence to explore first:**
-   - establish a seasonal-index baseline (deseasonalize → smooth → reseasonalize)
-   - then test trend damping on top
-   - then a pattern-aware split: intermittent/lumpy SKUs may deserve a different rule (e.g., long-window mean) than smooth ones — decide from train-set residuals, justify in the journal
-4. **Forbidden:** anything that touches rule 2 of CLAUDE.md (holdout reconstruction); per-month hard-coded values; ensembles of more than 3 components (interpretability matters).
-5. **Reporting bar:** every journal entry must state the dev/holdout gap explicitly. If holdout FVA lags dev FVA by more than 1.5 points for two consecutive runs, stop and write a diagnosis instead of a fifth experiment.
+1. **Budget:** maximum 5 experiments this session. Champion to beat: run 3, holdout FVA **+7.62**.
+2. **Scope:** cycle-1 scope PLUS the intermittent-demand classics — Croston's method and its SBA bias correction. Per-series parameter tuning is allowed ONLY against the series' own in-history one-step errors (never against dev scores). Still numpy + stdlib only.
+3. **Sequence to explore:**
+   - Croston on the intermittent branch (replace the 12-month mean; α around 0.1–0.2)
+   - SBA bias correction on top — keep whichever the holdout supports
+   - per-series α tuning for the smooth branch's SES, tuned in-history only
+   - robust (median-based) seasonal indices on the smooth branch
+   - fifth slot at the agent's discretion, justified from train residuals
+4. **Standing principle (from cycle 1, run 4):** a change that improves dev but not holdout is refused, whatever the dev gain.
+5. **Forbidden:** unchanged (no holdout reconstruction, no per-month hard-coding, ≤3 components, no protocol edits).
+6. **Stop rules:** cycle-1 rule stays; additionally, stop early if two consecutive experiments worsen holdout — do not dig.
 
 ## Standing questions the director wants answered
 

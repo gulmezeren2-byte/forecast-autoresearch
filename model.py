@@ -7,10 +7,10 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Model of record: run 3 (cycle 1 champion, holdout FVA +7.62).
-Pattern-aware split: SKUs with >20% zero months get a 12-month mean;
-the rest get seasonal-index + SES. Runs 4-5 explored refinements and were
-refused/reverted - see journal/JOURNAL.md.
+Cycle 2, experiment 1: Croston on the intermittent branch.
+Separate exponential smoothing of nonzero demand sizes and inter-demand
+intervals (alpha=0.15); forecast = size_level / interval_level. Smooth branch
+unchanged from the cycle-1 champion.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ import numpy as np
 
 SEASON = 12
 ZERO_SHARE_CUT = 0.20
+CROSTON_ALPHA = 0.15
 
 
 def _ses(x: np.ndarray, alpha: float = 0.3) -> float:
@@ -28,11 +29,26 @@ def _ses(x: np.ndarray, alpha: float = 0.3) -> float:
     return float(level)
 
 
+def _croston(h: np.ndarray, alpha: float = CROSTON_ALPHA) -> float:
+    size = interval = None
+    gap = 1
+    for v in h:
+        if v > 0:
+            size = v if size is None else alpha * v + (1 - alpha) * size
+            interval = gap if interval is None else alpha * gap + (1 - alpha) * interval
+            gap = 1
+        else:
+            gap += 1
+    if size is None:
+        return 0.0
+    return float(size / max(interval, 1e-9))
+
+
 def forecast_one(history: np.ndarray) -> float:
     h = np.asarray(history, dtype=float)
     n = len(h)
     if (h == 0).mean() > ZERO_SHARE_CUT:
-        return float(h[-SEASON:].mean())  # intermittent/lumpy: calm 12-month mean
+        return _croston(h)  # intermittent/lumpy: Croston's method
     if n < 2 * SEASON:
         return _ses(h)
     m = np.arange(n) % SEASON
