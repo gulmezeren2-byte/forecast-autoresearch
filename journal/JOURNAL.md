@@ -69,5 +69,11 @@ Director's standing question 2 ("is there ANY honest monthly method that helps l
 - Read: the correction recovers part of Croston's bias (+0.11 holdout vs run 6) but the family still loses to the plain 12-month mean on both windows. Verdict per directive step 2: holdout supports the mean — Croston/SBA measured and retired for this universe. Note the asymmetry with textbooks: Croston is the *literature's* answer for intermittent demand, but its edge assumes drifting intervals; against stationary occurrence, calm wins. That is itself a publishable finding.
 - Next: directive step 3 — per-series α for the smooth branch's SES, tuned only against each series' own in-history one-step errors (grid 0.1–0.5). Intermittent branch reverts to the champion's 12-month mean.
 
+## Run 8 — 2026-07-14 — per-series α (in-history tuning) — **NEW CHAMPION +8.01**
+- Change: intermittent branch back to the 12-month mean; smooth branch's SES α chosen per series from {0.1..0.5} by one-step error over the series' own deseasonalized history.
+- Result: dev FVA **+4.19**, holdout FVA **+8.01** (prev champion +7.62 → +0.39)
+- Read: the win generalizes precisely because the tuning never saw the dev window — each series picks the responsiveness its own history justifies. Dev moved little (−0.10 vs run 3) while holdout jumped: the opposite signature of run 4's refused change, and the cleanest evidence yet that in-history tuning is the legitimate way to add flexibility.
+- Next: directive step 4 — median-based seasonal indices on the smooth branch (robust to single-month outliers).
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.

@@ -7,11 +7,9 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Cycle 2, experiment 3: per-series alpha for the smooth branch.
-Croston/SBA retired (runs 6-7: holdout supports the plain mean). Intermittent
-branch back to the champion's 12-month mean. On the smooth branch, SES alpha
-is chosen per series from {0.1..0.5} by one-step error over the series' OWN
-history (deseasonalized) - never against dev scores.
+Cycle 2, experiment 4: robust seasonal indices (run 8 + medians).
+Per-month indices computed from medians instead of means, so a single
+outlier month cannot distort a slot's index. Everything else as run 8.
 """
 
 from __future__ import annotations
@@ -50,9 +48,9 @@ def forecast_one(history: np.ndarray) -> float:
     if n < 2 * SEASON:
         return _ses(h)
     m = np.arange(n) % SEASON
-    overall = h.mean() if h.mean() > 0 else 1.0
+    overall = np.median(h) if np.median(h) > 0 else (h.mean() if h.mean() > 0 else 1.0)
     idx = np.array([
-        h[m == k].mean() / overall if h[m == k].mean() > 0 else 1.0
+        np.median(h[m == k]) / overall if np.median(h[m == k]) > 0 else 1.0
         for k in range(SEASON)
     ])
     idx = np.where(idx <= 0, 1.0, idx)
