@@ -25,7 +25,7 @@ ZERO_SHARE_CUT = 0.20
 ALPHAS = (0.1, 0.2, 0.3, 0.4, 0.5)
 
 
-def _ses(x: np.ndarray, alpha: float) -> float:
+def _ses(x: np.ndarray, alpha: float = 0.3) -> float:
     level = x[0]
     for v in x[1:]:
         level = alpha * v + (1 - alpha) * level
