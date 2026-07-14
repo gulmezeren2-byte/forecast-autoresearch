@@ -7,11 +7,13 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Cycle 2, experiment 5: in-history window selection for the intermittent branch.
-Medians reverted (run 9 regression). Run 8 kept; additionally the intermittent
-branch's mean window is chosen per series from {6, 12, 24, all} by one-step
-error over the series' OWN history - the same legitimate mechanism that made
-run 8 the champion, applied to the other branch.
+Model of record: run 10 (cycle 2 champion, holdout FVA +8.13).
+Pattern-aware split with in-history self-tuning on both branches:
+- intermittent/lumpy (zero share > 0.20): mean over a window chosen per series
+  from {6, 12, 24, all} by one-step error on the series' own history
+- smooth/erratic: seasonal indices + SES with per-series alpha chosen the same
+  in-history way
+The full experiment record (10 runs, 2 cycles) lives in journal/JOURNAL.md.
 """
 
 from __future__ import annotations

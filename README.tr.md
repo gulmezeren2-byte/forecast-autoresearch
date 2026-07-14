@@ -5,11 +5,11 @@
 🇬🇧 English version: [README.md](README.md)
 
 > Yapay zeka ajanına **düzenleyebileceği tek dosya**, **asla göremeyeceği mühürlü bir test dönemi**, sabit bir deney bütçesi ve tek dürüst metrik veriliyor: **geçen ayın sayısını sevk etmeye karşı katma değer.**
-> Klasik istatistiğin koyduğu çıta: **+6,79 puan.** Döngü 1 sonunda: **ajan çıtayı geçti — +7,62, 5 deneyin 3.'sünde.**
+> Klasik istatistiğin koyduğu çıta: **+6,79 puan.** İki döngü ve on deney sonra: **+8,13.**
 
 ![Skor tablosu](charts/leaderboard.svg)
 
-**Durum — döngü 1 tamamlandı (5 deney):** çıta süslü matematikle değil *itidalle* düştü — kesikli talebe mevsimsel endeks dayatmayı reddederek (koşu 3). Bir iyileştirme yalnızca dev penceresini iyileştirdiği için reddedildi (koşu 4), biri dozu kaçırdı (koşu 5). Her koşu — iki başarısızlık dahil — gerekçeleriyle [skor tablosunda](leaderboard.md) ve [günlükte](journal/JOURNAL.md).
+**Durum — döngü 1-2 tamamlandı (10 deney; 4 ret/gerileme eksiksiz kayıtlı):** çıta önce *itidalle* düştü (kesikli talebe mevsimsel endeks dayatmayı reddederek), sonra rekor iki kez aynı meşru mekanizmayla kırıldı — **geçmiş-içi öz-ayar**: her serinin kendi düzeltme katsayısını ve penceresini değerlendirme penceresinden değil, kendi geçmişinden seçmesi. Ders kitabının kesikli-talep uzmanı (Croston/SBA) ölçüldü ve düz ortalamaya kaybetti; "dayanıklı" medyanlar sert geriledi; yalnız dev'i iyileştiren bir değişiklik ilkesel olarak reddedildi. Her koşu gerekçesiyle [skor tablosunda](leaderboard.md) ve [günlükte](journal/JOURNAL.md).
 
 ## Referans çıtası (gerçek sayılar, donmuş protokol)
 

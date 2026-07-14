@@ -25,4 +25,6 @@
 ## Directive history
 
 - 2026-07-14 — cycle 1 opened: classical-statistics scope, 5-experiment sessions.
-- 2026-07-14 — cycle 1 closed: bar cleared at +7.62 (run 3, pattern-aware split). Findings and refused changes in journal/JOURNAL.md. Cycle 2 scope to be decided by the director — candidate directions: Croston-style intermittent methods, dev-window redesign (rolling 12 instead of last 6), per-pattern error reporting in run.py (would require a protocol version bump).
+- 2026-07-14 — cycle 1 closed: bar cleared at +7.62 (run 3, pattern-aware split). Findings and refused changes in journal/JOURNAL.md.
+- 2026-07-14 — cycle 2 opened: Croston/SBA scope + in-history tuning; dev-only-gain refusal made a standing principle.
+- 2026-07-14 — cycle 2 closed: champion +8.13 (run 10). Croston measured and retired; the cycle's discovery is the in-history self-tuning mechanism (runs 8 and 10). Candidate cycle-3 directions: protocol v2 with per-pattern reporting, longer-horizon scoring (h=3), or declaring the experiment's classical phase complete and writing it up.

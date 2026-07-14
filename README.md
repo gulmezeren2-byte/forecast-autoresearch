@@ -5,11 +5,11 @@
 🇹🇷 Türkçesi: [README.tr.md](README.tr.md)
 
 > An AI agent gets **one file to edit**, a **sealed holdout it can never see**, a fixed experiment budget, and a single honest metric: **value added over shipping last month's number**.
-> The bar set by classical statistics: **+6.79 points**. After cycle 1: **the agent cleared it — +7.62, on experiment 3 of 5.**
+> The bar set by classical statistics: **+6.79 points**. Two cycles and ten experiments later: **+8.13.**
 
 ![Leaderboard](charts/leaderboard.svg)
 
-**Status — cycle 1 complete (5 experiments):** the bar fell not to fancier math but to *restraint* — refusing to fit seasonal indices to intermittent demand (run 3). One refinement was refused for improving only the dev window (run 4), one overshot (run 5). Every run — including both failures — is on the [leaderboard](leaderboard.md) and in the [journal](journal/JOURNAL.md), with the full reasoning.
+**Status — cycles 1-2 complete (10 experiments, 4 refusals/regressions fully logged):** the bar fell to *restraint* (refusing seasonal indices on intermittent demand), then the record fell twice to one legitimate mechanism — **in-history self-tuning**: each series choosing its own smoothing and window from its own past, never from the evaluation window. The textbook's specialist for intermittent demand (Croston/SBA) was measured and lost to a plain mean; "robust" medians regressed hard; a dev-only gain was refused on principle. Every run is on the [leaderboard](leaderboard.md) and in the [journal](journal/JOURNAL.md), with the reasoning.
 
 ## The reference bar (real numbers, frozen protocol)
 

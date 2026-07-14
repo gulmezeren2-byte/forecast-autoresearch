@@ -81,5 +81,29 @@ Director's standing question 2 ("is there ANY honest monthly method that helps l
 - Read: a large, consistent regression on both windows. With only 3-4 observations per month-slot, a median is a coarser estimator than the mean, and median normalization distorts the level for skewed series. "Robust" is not free — robustness pays when outliers exist; this universe's smooth series don't have enough of them to cover the efficiency loss. Reverted.
 - Next: final slot (agent's discretion). Chosen: generalize run 8's *legitimate* mechanism — in-history selection — to the intermittent branch: choose the mean window per series from {6, 12, 24, all} by one-step error over the series' own history.
 
+## Run 10 — 2026-07-14 — in-history window selection on the intermittent branch — **CHAMPION +8.13**
+- Change: run 8 kept; the intermittent branch's mean window chosen per series from {6, 12, 24, all} by one-step error over the series' own last year of history.
+- Result: dev FVA **+4.33**, holdout FVA **+8.13** (prev champion +8.01)
+- Read: both windows improved — the same signature as run 8 and for the same reason: the flexibility was earned from each series' own past, not from the evaluation window. The mechanism, not any single model, is the discovery of this cycle.
+- Next: session budget reached — cycle closed.
+
+## Cycle 2 summary — 2026-07-14
+
+**Champion: run 10, holdout FVA +8.13** (cycle 1 left off at +7.62; bar was +6.79).
+
+| Run | Idea | Dev FVA | Holdout FVA |
+|-----|------|--------:|------------:|
+| 6 | Croston(0.15) on intermittent | +4.01 | +7.20 |
+| 7 | + SBA correction | +4.07 | +7.31 |
+| **8** | per-series α (in-history) | +4.19 | **+8.01** |
+| 9 | median seasonal indices | +2.73 | +5.95 |
+| **10** | + in-history window choice for intermittent | **+4.33** | **+8.13** |
+
+**What cycle 2 taught:**
+1. **The textbook's specialist lost.** Croston — the literature's answer for intermittent demand — measured below a plain 12-month mean here (runs 6-7). Its edge assumes drifting demand intervals; against stationary occurrence, calm wins. Method choice must follow the data's actual failure mode, not the method's reputation.
+2. **The cycle's real discovery is a mechanism, not a model:** in-history self-tuning (each series choosing its α, its window, from its own past) improved holdout twice, on both branches (runs 8, 10) — while every form of *imposed* cleverness (trend, shrinkage, medians, Croston) lost.
+3. **"Robust" is not free** (run 9): with 3-4 observations per seasonal slot, medians throw away efficiency the outliers never threatened.
+4. Two cycles, ten experiments, four refusals/regressions fully logged. The final model remains ~15 lines of interpretable numpy.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.
