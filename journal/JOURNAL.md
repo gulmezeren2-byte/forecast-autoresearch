@@ -63,5 +63,11 @@ Director's standing question 2 ("is there ANY honest monthly method that helps l
 - Read: worse on both windows — a real, consistent loss, not window luck. Diagnosis: these intermittent series have near-stationary occurrence; Croston earns its keep when demand *intervals drift*, which this universe lacks. Against a stationary process, the 12-month mean is already close to the Bayes answer and Croston's recency-weighting only adds variance.
 - Next: directive step 2 — SBA bias correction (×(1−α/2)). Croston runs hot by construction; the correction may recover part of the loss. Warning flag: if this also lands below champion, stop rule 6 (two consecutive holdout regressions) triggers.
 
+## Run 7 — 2026-07-14 — Croston + SBA correction
+- Change: SBA factor (1−α/2) on the Croston rate.
+- Result: dev FVA **+4.07**, holdout FVA **+7.31** (champion still +7.62)
+- Read: the correction recovers part of Croston's bias (+0.11 holdout vs run 6) but the family still loses to the plain 12-month mean on both windows. Verdict per directive step 2: holdout supports the mean — Croston/SBA measured and retired for this universe. Note the asymmetry with textbooks: Croston is the *literature's* answer for intermittent demand, but its edge assumes drifting intervals; against stationary occurrence, calm wins. That is itself a publishable finding.
+- Next: directive step 3 — per-series α for the smooth branch's SES, tuned only against each series' own in-history one-step errors (grid 0.1–0.5). Intermittent branch reverts to the champion's 12-month mean.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.
