@@ -75,5 +75,11 @@ Director's standing question 2 ("is there ANY honest monthly method that helps l
 - Read: the win generalizes precisely because the tuning never saw the dev window — each series picks the responsiveness its own history justifies. Dev moved little (−0.10 vs run 3) while holdout jumped: the opposite signature of run 4's refused change, and the cleanest evidence yet that in-history tuning is the legitimate way to add flexibility.
 - Next: directive step 4 — median-based seasonal indices on the smooth branch (robust to single-month outliers).
 
+## Run 9 — 2026-07-14 — median-based seasonal indices
+- Change: per-month indices from medians (and median normalization) instead of means.
+- Result: dev FVA **+2.73**, holdout FVA **+5.95** (champion +8.01)
+- Read: a large, consistent regression on both windows. With only 3-4 observations per month-slot, a median is a coarser estimator than the mean, and median normalization distorts the level for skewed series. "Robust" is not free — robustness pays when outliers exist; this universe's smooth series don't have enough of them to cover the efficiency loss. Reverted.
+- Next: final slot (agent's discretion). Chosen: generalize run 8's *legitimate* mechanism — in-history selection — to the intermittent branch: choose the mean window per series from {6, 12, 24, all} by one-step error over the series' own history.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.

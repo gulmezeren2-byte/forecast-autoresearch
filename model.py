@@ -7,9 +7,11 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Cycle 2, experiment 4: robust seasonal indices (run 8 + medians).
-Per-month indices computed from medians instead of means, so a single
-outlier month cannot distort a slot's index. Everything else as run 8.
+Cycle 2, experiment 5: in-history window selection for the intermittent branch.
+Medians reverted (run 9 regression). Run 8 kept; additionally the intermittent
+branch's mean window is chosen per series from {6, 12, 24, all} by one-step
+error over the series' OWN history - the same legitimate mechanism that made
+run 8 the champion, applied to the other branch.
 """
 
 from __future__ import annotations
@@ -40,17 +42,31 @@ def _ses_tuned(x: np.ndarray) -> float:
     return _ses(x, best_a)
 
 
+def _windowed_mean_tuned(h: np.ndarray) -> float:
+    n = len(h)
+    windows = [w for w in (6, 12, 24) if w < n] + [n]
+    best_w, best_err = windows[-1], np.inf
+    start = max(SEASON, n - SEASON)  # evaluate over the last year of history
+    for w in windows:
+        err = 0.0
+        for t in range(start, n):
+            err += abs(h[max(0, t - w):t].mean() - h[t])
+        if err < best_err:
+            best_w, best_err = w, err
+    return float(h[-best_w:].mean())
+
+
 def forecast_one(history: np.ndarray) -> float:
     h = np.asarray(history, dtype=float)
     n = len(h)
     if (h == 0).mean() > ZERO_SHARE_CUT:
-        return float(h[-SEASON:].mean())  # intermittent/lumpy: calm 12-month mean
+        return _windowed_mean_tuned(h)  # intermittent/lumpy: in-history window choice
     if n < 2 * SEASON:
         return _ses(h)
     m = np.arange(n) % SEASON
-    overall = np.median(h) if np.median(h) > 0 else (h.mean() if h.mean() > 0 else 1.0)
+    overall = h.mean() if h.mean() > 0 else 1.0
     idx = np.array([
-        np.median(h[m == k]) / overall if np.median(h[m == k]) > 0 else 1.0
+        h[m == k].mean() / overall if h[m == k].mean() > 0 else 1.0
         for k in range(SEASON)
     ])
     idx = np.where(idx <= 0, 1.0, idx)

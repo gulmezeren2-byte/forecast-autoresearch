@@ -10,9 +10,10 @@ Single metric: **FVA vs naive (WMAPE points; higher is better)**. Best holdout F
 | 2026-07-14 10:58 | agent               |      3.96 |          7.35 |         288 | 142ca7380b43 |     | intermittent branch: full-history mean (max restraint)          |
 | 2026-07-14 11:03 | agent               |      4.07 |          7.31 |         288 | 5d604e42b35f |     | C2: Croston + SBA correction                                    |
 | 2026-07-14 11:02 | agent               |      4.01 |          7.2  |         288 | 96751f91f6bf |     | C2: Croston(0.15) on intermittent branch                        |
-| 2026-07-14 10:44 | ref: seasonal SES   |      3.98 |          6.79 |         288 | -            |     | reference model                                                 |
 | 2026-07-14 10:55 | agent               |      3.98 |          6.79 |         288 | f9d824492c8e |     | seasonal index + SES on deseasonalized level                    |
+| 2026-07-14 10:44 | ref: seasonal SES   |      3.98 |          6.79 |         288 | -            |     | reference model                                                 |
 | 2026-07-14 10:56 | agent               |      3.79 |          6.38 |         288 | 92e0ffb37c12 |     | damped-trend Holt on deseasonalized level (phi=0.85)            |
+| 2026-07-14 11:15 | agent               |      2.73 |          5.95 |         288 | 9432130ff161 |     | C2: median-based seasonal indices                               |
 | 2026-07-14 10:44 | ref: seasonal naive |     -0.94 |          3.56 |         288 | -            |     | reference model                                                 |
 | 2026-07-14 10:44 | ref: SES(0.3)       |      1.2  |          3.3  |         288 | -            |     | reference model                                                 |
 | 2026-07-14 10:44 | ref: 3-month MA     |      1.38 |          2.07 |         288 | -            |     | reference model                                                 |
