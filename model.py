@@ -7,10 +7,11 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Experiment 3: pattern-aware split (directive step 3).
-Intermittent/lumpy detection from the history alone (zero share > 0.20):
-those SKUs get a calm 12-month mean; smooth/erratic SKUs keep the run-1
-seasonal-index + SES logic (damped trend retired after run 2).
+Experiment 4: noise-shrunk seasonal indices (run 3 + shrinkage).
+Split from run 3 kept. On the seasonal branch, indices are shrunk toward 1 in
+proportion to the series' coefficient of variation: idx' = 1 + (idx-1)*k with
+k = 1/(1 + max(0, cv - 0.3)). Erratic series get flatter (calmer) indices;
+genuinely seasonal smooth series keep theirs.
 """
 
 from __future__ import annotations
@@ -42,5 +43,8 @@ def forecast_one(history: np.ndarray) -> float:
         for k in range(SEASON)
     ])
     idx = np.where(idx <= 0, 1.0, idx)
+    cv = h.std() / overall
+    k = 1.0 / (1.0 + max(0.0, cv - 0.3))
+    idx = 1.0 + (idx - 1.0) * k
     deseasonalized = h / idx[m]
     return float(max(0.0, _ses(deseasonalized) * idx[n % SEASON]))
