@@ -7,11 +7,10 @@ Contract:
     Must be deterministic, must not read any file, must not import model-external
     state. Total scoring budget across all calls: see run.py BUDGET_SECONDS.
 
-Experiment 4: noise-shrunk seasonal indices (run 3 + shrinkage).
-Split from run 3 kept. On the seasonal branch, indices are shrunk toward 1 in
-proportion to the series' coefficient of variation: idx' = 1 + (idx-1)*k with
-k = 1/(1 + max(0, cv - 0.3)). Erratic series get flatter (calmer) indices;
-genuinely seasonal smooth series keep theirs.
+Experiment 5: run-3 core, calmer intermittent branch.
+Shrinkage from run 4 reverted (dev-only gain = refused). The intermittent/lumpy
+branch now uses the FULL-history mean instead of the last 12 months - the
+calmest honest estimator available for demand that punishes pattern-chasing.
 """
 
 from __future__ import annotations
@@ -33,7 +32,7 @@ def forecast_one(history: np.ndarray) -> float:
     h = np.asarray(history, dtype=float)
     n = len(h)
     if (h == 0).mean() > ZERO_SHARE_CUT:
-        return float(h[-SEASON:].mean())  # intermittent/lumpy: calm long-window mean
+        return float(h.mean())  # intermittent/lumpy: the calmest honest estimator
     if n < 2 * SEASON:
         return _ses(h)
     m = np.arange(n) % SEASON
@@ -43,8 +42,5 @@ def forecast_one(history: np.ndarray) -> float:
         for k in range(SEASON)
     ])
     idx = np.where(idx <= 0, 1.0, idx)
-    cv = h.std() / overall
-    k = 1.0 / (1.0 + max(0.0, cv - 0.3))
-    idx = 1.0 + (idx - 1.0) * k
     deseasonalized = h / idx[m]
     return float(max(0.0, _ses(deseasonalized) * idx[n % SEASON]))

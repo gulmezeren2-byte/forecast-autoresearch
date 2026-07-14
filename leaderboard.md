@@ -5,6 +5,7 @@ Single metric: **FVA vs naive (WMAPE points; higher is better)**. Best holdout F
 | run_at_utc       | label               |   dev_fva |   holdout_fva |   forecasts | model_sha    | ⚑   | note                                                         |
 |:-----------------|:--------------------|----------:|--------------:|------------:|:-------------|:----|:-------------------------------------------------------------|
 | 2026-07-14 10:57 | agent               |      4.29 |          7.62 |         288 | 16cc55f52ddd |     | pattern split: zero-share>0.2 -> 12m mean; else seasonal SES |
+| 2026-07-14 10:57 | agent               |      4.62 |          7.57 |         288 | 8c9b041be777 |     | CV-shrunk seasonal indices on smooth branch                  |
 | 2026-07-14 10:44 | ref: seasonal SES   |      3.98 |          6.79 |         288 | -            |     | reference model                                              |
 | 2026-07-14 10:55 | agent               |      3.98 |          6.79 |         288 | f9d824492c8e |     | seasonal index + SES on deseasonalized level                 |
 | 2026-07-14 10:56 | agent               |      3.79 |          6.38 |         288 | 92e0ffb37c12 |     | damped-trend Holt on deseasonalized level (phi=0.85)         |

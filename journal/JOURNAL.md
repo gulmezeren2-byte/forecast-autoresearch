@@ -22,5 +22,11 @@ Every run — success or failure — is recorded here by the experimenting agent
 - Read: the single biggest gain of the cycle, and it came from *restraint*: per-month indices on intermittent series rest on 3-4 observations and mostly amplify noise; replacing them with a calm mean helped both windows (dev +0.31, holdout +0.83 vs run 1). This is the abc-xyz thesis showing up inside a forecasting model: volatile demand rewards buffering-style calmness, not pattern-chasing. Dev/holdout moved together — no overfitting signal.
 - Next: directive step 3's second idea — the erratic (nonzero but high-noise) SKUs also get spurious seasonal indices; try shrinking indices toward 1 in proportion to noise (CV-based), smooth branch only.
 
+## Run 4 — 2026-07-14 — CV-shrunk seasonal indices
+- Change: on the seasonal branch, indices shrunk toward 1 by k = 1/(1+max(0, cv−0.3)).
+- Result: dev FVA **+4.62**, holdout FVA **+7.57** (prev best +7.62)
+- Read: dev up +0.33, holdout down −0.05 — the textbook marginal-overfit signature: the tweak fits the dev window's erratic mix and does not generalize. The −0.05 is within noise, but when a change helps only the window I can iterate on, the honest default is to refuse it. Per program.md's interpretability rule, shrinkage is dropped and run 3 stands as the base.
+- Next: final experiment of the session — push run 3's actual lesson (restraint on volatile series) further: intermittent branch moves from a 12-month mean to the full-history mean.
+
 ## Method caveat (standing)
 - Holdout FVA is visible after each run; with 5 runs per session there is mild selection risk across experiments. The final write-up must report ALL runs, not the best one.
